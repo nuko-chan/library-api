@@ -49,3 +49,6 @@ Current history uses imperative, descriptive commits (example: `Initialize proje
 ## Language Policy
 - Think in English.
 - Respond to the user in Japanese.
+
+## Execution Policy
+- Do not implement code changes unless the user explicitly instructs you to do so.
