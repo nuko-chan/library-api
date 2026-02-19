@@ -1,11 +1,14 @@
-import type { Book } from "../generated/prisma/client.js";
-import { PrismaClient } from "../generated/prisma/client.js";
+import type { Book } from "../generated/prisma/index.js";
+import { PrismaClient } from "../generated/prisma/index.js";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 export class PrismaBookRepository {
 	private prisma: PrismaClient;
 
 	constructor() {
-		this.prisma = new PrismaClient({} as any);
+		const connectionString = process.env.DATABASE_URL ?? "";
+		const adapter = new PrismaBetterSqlite3({ url: connectionString });
+		this.prisma = new PrismaClient({ adapter });
 	}
 
 	// 本を作成する

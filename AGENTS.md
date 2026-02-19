@@ -45,3 +45,7 @@ Current history uses imperative, descriptive commits (example: `Initialize proje
 - Keep each commit focused on one logical change.
 - PRs should include: summary, testing notes (commands + results), and linked issue (if available).
 - For API changes, include example request/response payloads in the PR description.
+
+## Language Policy
+- Think in English.
+- Respond to the user in Japanese.

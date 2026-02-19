@@ -1,5 +1,5 @@
 import { PrismaBookRepository } from "../dataAccess/prismaBookRepository.js";
-import type { Book } from "../generated/prisma/client.js";
+import type { Book } from "../generated/prisma/index.js";
 
 export class BookService {
 	private bookRepository: PrismaBookRepository;
