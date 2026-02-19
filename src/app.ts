@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // ルートを設定する
 app.get("/", (req, res)=>{
-  res.send("Hello World");
+  res.json({"message": "Hello World"});
 })
 
 // サーバーを起動する
