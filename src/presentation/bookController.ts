@@ -12,10 +12,11 @@ export class BookController {
 		try {
 			const { title } = req.body;
 			const book = await this.bookService.add(title);
+			console.log(book);
 			res.status(202).json(book);
 		} catch (error) {
 			console.log(error);
-			res.status(500).json({ error: "書籍の登録二失敗しました" });
+			res.status(500).json({ error: "書籍の登録に失敗しました" });
 		}
 	}
 
