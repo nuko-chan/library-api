@@ -1,7 +1,8 @@
 import type { BookRepositoryInterface } from "../dataAccess/bookRepositoryInterface.ts";
 import type { Book } from "../generated/prisma/index.js";
+import type { BookServiceInterface } from "./bookServiceInterface.js";
 
-export class BookService {
+export class BookService implements BookServiceInterface {
 	constructor(private readonly bookRepository: BookRepositoryInterface) {}
 
 	// 本を登録する
