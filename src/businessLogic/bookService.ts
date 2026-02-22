@@ -1,12 +1,8 @@
-import { PrismaBookRepository } from "../dataAccess/prismaBookRepository.js";
+import type { BookRepositoryInterface } from "../dataAccess/bookRepositoryInterface.ts";
 import type { Book } from "../generated/prisma/index.js";
 
 export class BookService {
-	private bookRepository: PrismaBookRepository;
-
-	constructor() {
-		this.bookRepository = new PrismaBookRepository();
-	}
+	constructor(private readonly bookRepository: BookRepositoryInterface) {}
 
 	// 本を登録する
 	async add(title: string): Promise<Book> {
