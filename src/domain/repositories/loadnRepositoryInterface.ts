@@ -1,7 +1,11 @@
 import type { Loan } from "../entities/loan.js";
+import type { TransactionContextInterface } from "../utils/transactionContextInterface.js";
 
 export interface LoanRepositoryInterface {
-	create(loan: Loan): Promise<Loan>;
-	findById(id: string): Promise<Loan | null>;
-	findByUserId(userId: string): Promise<Loan[]>;
+	create(loan: Loan, ctx?: TransactionContextInterface): Promise<Loan>;
+	findById(id: string, ctx?: TransactionContextInterface): Promise<Loan | null>;
+	findByUserId(
+		userId: string,
+		ctx?: TransactionContextInterface,
+	): Promise<Loan[]>;
 }

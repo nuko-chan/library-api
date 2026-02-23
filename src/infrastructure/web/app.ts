@@ -7,6 +7,7 @@ import { UserController } from "../../adapter/controllers/userController.js";
 import { PrismaBookRepository } from "../../adapter/repositories/prismaBookRepository.js";
 import { PrismaLoanRepository } from "../../adapter/repositories/prismaLoanRepository.js";
 import { PrismaUserRepository } from "../../adapter/repositories/prismaUserRepository.js";
+import { PrismaTransactionManager } from "../../adapter/utils/prismaTransactionManager.js";
 import { UuidGenerator } from "../../adapter/utils/uuidGenerator.js";
 import { AddBookUseCase } from "../../application/usecases/book/addBookUseCase.js";
 import { FindBookByIdUseCase } from "../../application/usecases/book/findBookByIdUseCase.js";
@@ -25,6 +26,7 @@ const adapter = new PrismaBetterSqlite3({
 });
 const prisma = new PrismaClient({ adapter });
 const uuidGenerator = new UuidGenerator();
+const transactionManager = new PrismaTransactionManager(prisma);
 
 // 本
 const bookRepository = new PrismaBookRepository(prisma);
@@ -43,6 +45,7 @@ const loanBookUseCase = new LoanBookUseCase(
 	loanRepository,
 	bookRepository,
 	uuidGenerator,
+	transactionManager,
 );
 const loanController = new LoanController(loanBookUseCase);
 
