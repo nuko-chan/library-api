@@ -23,6 +23,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.4.2",
 		"@types/express": "^5.0.6",
+		"@types/jest": "^30.0.0",
 		"@types/node": "^25.3.0",
 		"prisma": "^7.4.0",
 		"typescript": "^5.9.3",

@@ -118,6 +118,7 @@ classDiagram
 ```
 
 **ファイル構成**:
+
 - `src/domain/entities/book.ts`
 - `src/domain/repositories/bookRepositoryInterface.ts`
 - `src/domain/utils/idGeneratorInterface.ts`
@@ -161,6 +162,7 @@ classDiagram
 ```
 
 **ファイル構成**:
+
 - `src/application/usecases/book/addBookUseCase.ts`
 - `src/application/usecases/book/addBookUseCaseInterface.ts`
 - `src/application/dtos/book/addBookRequestDto.ts`
@@ -169,6 +171,7 @@ classDiagram
 **依存先**: Domain層のみ（Entity, Interface）
 
 **処理フロー**:
+
 ```mermaid
 sequenceDiagram
     participant UC as AddBookUseCase
@@ -222,6 +225,7 @@ classDiagram
 ```
 
 **ファイル構成**:
+
 - `src/adapter/controllers/bookController.ts`
 - `src/adapter/repositories/prismaBookRepository.ts`
 - `src/adapter/utils/uuidGenerator.ts`
@@ -229,6 +233,7 @@ classDiagram
 **依存先**: Domain層、Application層
 
 **BookControllerの処理フロー**:
+
 ```mermaid
 sequenceDiagram
     participant HTTP as Express Request
@@ -273,12 +278,14 @@ graph TB
 ```
 
 **ファイル構成**:
+
 - `src/infrastructure/web/app.ts`
 - `src/infrastructure/web/routers/bookRouter.ts`
 
 **依存先**: すべての層（すべてを組み立てる）
 
 **app.tsでの依存性注入**:
+
 ```typescript
 // 外側から内側へ、順番にインスタンスを生成
 
@@ -368,6 +375,7 @@ graph TB
 ```
 
 **メリット**:
+
 1. **テスト容易性**: モックやスタブを使った単体テストが簡単
 2. **変更容易性**: Prismaを別のORMに変更しても、ユースケースは影響を受けない
 3. **ビジネスロジックの保護**: フレームワークや技術的詳細がビジネスロジックに侵入しない
@@ -375,19 +383,21 @@ graph TB
 **具体例**:
 
 `AddBookUseCase`は`BookRepositoryInterface`に依存:
+
 ```typescript
 export class AddBookUseCase {
   constructor(
-    private readonly bookRepository: BookRepositoryInterface,  // インターフェース
-    private readonly idGenerator: IdGeneratorInterface,        // インターフェース
+    private readonly bookRepository: BookRepositoryInterface, // インターフェース
+    private readonly idGenerator: IdGeneratorInterface, // インターフェース
   ) {}
 }
 ```
 
 実際の実装は`app.ts`で注入:
+
 ```typescript
-const bookRepository = new PrismaBookRepository(prisma);  // 具体実装
-const uuidGenerator = new UuidGenerator();                 // 具体実装
+const bookRepository = new PrismaBookRepository(prisma); // 具体実装
+const uuidGenerator = new UuidGenerator(); // 具体実装
 const addBookUseCase = new AddBookUseCase(bookRepository, uuidGenerator);
 ```
 

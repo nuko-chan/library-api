@@ -20,7 +20,7 @@ const iiudidGenerator = new UuidGenerator();
 const bookRepository = new PrismaBookRepository(prisma);
 const addBookUseCase = new AddBookUseCase(bookRepository, iiudidGenerator);
 const bookController = new BookController(addBookUseCase);
-app.use("/book", bookRoutes(bookController));
+app.use("/books", bookRoutes(bookController));
 
 // ポートを指定する
 const PORT = process.env.PORT || 3000;
