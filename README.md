@@ -59,6 +59,40 @@ sequenceDiagram
   Controller-->>Client: JSON Response
 ```
 
+### Database Schema (Prisma)
+
+```mermaid
+erDiagram
+  BOOK {
+    string id PK
+    string title
+    boolean isAvailable
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  USER {
+    string id PK
+    string email UK
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  LOAN {
+    string id PK
+    string bookId FK
+    string userId FK
+    datetime loanDate
+    datetime dueDate
+    datetime returnDate
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  BOOK ||--o{ LOAN : "has many"
+  USER ||--o{ LOAN : "has many"
+```
+
 ## ディレクトリ構成
 
 ```text
