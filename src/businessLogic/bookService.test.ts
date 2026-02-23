@@ -7,7 +7,7 @@ import {
 	type Mocked,
 	vi,
 } from "vitest";
-import type { BookRepositoryInterface } from "../dataAccess/bookRepositoryInterface.js";
+import type { BookRepositoryInterface } from "../domain/repositories/bookRepositoryInterface.js";
 import type { Book } from "../generated/prisma/index.js";
 import { BookService } from "./bookService.js";
 

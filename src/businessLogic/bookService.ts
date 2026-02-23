@@ -1,4 +1,4 @@
-import type { BookRepositoryInterface } from "../dataAccess/bookRepositoryInterface.ts";
+import type { BookRepositoryInterface } from "../domain/repositories/bookRepositoryInterface.js";
 import type { Book } from "../generated/prisma/index.js";
 import type { BookServiceInterface } from "./bookServiceInterface.js";
 

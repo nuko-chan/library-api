@@ -1,7 +1,7 @@
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import type { BookRepositoryInterface } from "../domain/repositories/bookRepositoryInterface.js";
 import type { Book } from "../generated/prisma/index.js";
 import { PrismaClient } from "../generated/prisma/index.js";
-import type { BookRepositoryInterface } from "./bookRepositoryInterface.js";
 
 export class PrismaBookRepository implements BookRepositoryInterface {
 	private prisma: PrismaClient;
