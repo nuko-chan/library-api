@@ -44,4 +44,21 @@ export class PrismaBookRepository implements BookRepositoryInterface {
 			foundBook.updatedAt,
 		);
 	}
+
+	async update(book: Book): Promise<Book> {
+		const updatedBook = await this.prisma.book.update({
+			where: { id: book.id },
+			data: {
+				isAvailable: book.isAvailable,
+			},
+		});
+
+		return new Book(
+			updatedBook.id,
+			updatedBook.title,
+			updatedBook.isAvailable,
+			updatedBook.createdAt,
+			updatedBook.updatedAt,
+		);
+	}
 }
