@@ -1,6 +1,8 @@
 import "dotenv/config";
+import { resolve } from "node:path";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import express from "express";
+import swaggerUi from "swagger-ui-express";
 import { BookController } from "../../adapter/controllers/bookController.js";
 import { LoanController } from "../../adapter/controllers/loanController.js";
 import { UserController } from "../../adapter/controllers/userController.js";
@@ -59,6 +61,18 @@ const loanController = new LoanController(loanBookUseCase, returnBookUseCase);
 app.use("/users", userRoutes(userController));
 app.use("/books", bookRoutes(bookController));
 app.use("/loans", loanRoutes(loanController));
+app.get("/openapi.yml", (_req, res) => {
+	res.sendFile(resolve(process.cwd(), "openapi.yml"));
+});
+app.use(
+	"/docs",
+	swaggerUi.serve,
+	swaggerUi.setup(undefined, {
+		swaggerOptions: {
+			url: "/openapi.yml",
+		},
+	}),
+);
 
 // ポートを指定
 const PORT = process.env.PORT || 3000;
