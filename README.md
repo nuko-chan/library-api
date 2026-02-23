@@ -29,6 +29,72 @@ Express + TypeScript + Prisma（SQLite）で構成した書籍管理APIです。
 
 依存方向は `Infrastructure -> Adapter -> Application -> Domain` です。
 
+### 依存方向
+
+```mermaid
+graph LR
+  I[Infrastructure] --> A[Adapter]
+  A --> AP[Application]
+  AP --> D[Domain]
+```
+
+### リクエストフロー
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant Client
+  participant Router
+  participant Controller
+  participant UseCase
+  participant Repository
+  participant DB as SQLite
+
+  Client->>Router: HTTP Request
+  Router->>Controller: Route Dispatch
+  Controller->>UseCase: Request DTO
+  UseCase->>Repository: Domain Operation
+  Repository->>DB: Prisma Query
+  DB-->>Repository: Result
+  Repository-->>UseCase: Domain Entity
+  UseCase-->>Controller: Response DTO
+  Controller-->>Client: JSON Response
+```
+
+### データモデル
+
+```mermaid
+erDiagram
+  BOOK {
+    string id PK
+    string title
+    boolean isAvailable
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  USER {
+    string id PK
+    string email UK
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  LOAN {
+    string id PK
+    string bookId FK
+    string userId FK
+    datetime loanDate
+    datetime dueDate
+    datetime returnDate
+    datetime createdAt
+    datetime updatedAt
+  }
+
+  BOOK ||--o{ LOAN : "has many"
+  USER ||--o{ LOAN : "has many"
+```
+
 ## 技術スタック
 
 - Node.js 20+
