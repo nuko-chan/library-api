@@ -1,14 +1,9 @@
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { Book } from "../../domain/entities/book.js";
 import type { BookRepositoryInterface } from "../../domain/repositories/bookRepositoryInterface.js";
-import { PrismaClient } from "../../generated/prisma/client.js";
+import type { PrismaClient } from "../../generated/prisma/client.js";
 
 export class PrismaBookRepository implements BookRepositoryInterface {
-	constructor(private readonly prisma: PrismaClient) {
-		const connectionString = process.env.DATABASE_URL ?? "";
-		const adapter = new PrismaBetterSqlite3({ url: connectionString });
-		this.prisma = new PrismaClient({ adapter });
-	}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	// 本を作成する
 	async create(book: Book): Promise<Book> {

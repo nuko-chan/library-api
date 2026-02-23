@@ -4,8 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "tsx src/app.ts",
-		"test": "vitest run"
+		"dev": "tsx src/infrastructure/web/app.ts",
+		"test": "vitest run",
+		"lint:fix": "biome check --write ."
 	},
 	"keywords": [],
 	"author": "",
