@@ -1,54 +1,52 @@
-# Repository Guidelines
+# AGENTS.md
 
-## Project Structure & Module Organization
-This repository is currently bootstrapped with `package.json`, `package-lock.json`, and installed dependencies. Source modules are not committed yet. For new work, use this layout:
+このファイルは、学習用リポジトリでAIエージェントが従う最小ルールを定義する。
 
-- `src/` application code (Express app setup, routes, services)
-- `src/routes/` route handlers by feature (for example `books.routes.ts`)
-- `src/db/` Prisma client setup and data-access helpers
-- `tests/` unit and integration tests mirroring `src/` structure
+## 1. 目的と前提
 
-Keep modules small and feature-focused. Prefer one responsibility per file.
+- このリポジトリは学習用であり、主目的は疑問解消と設計理解。
+- エージェントは回答を優先し、実装は補助手段として扱う。
+- 実装・編集・コマンド実行は、ユーザーの明示依頼がある場合のみ行う。
 
-## Build, Test, and Development Commands
-- `npm install` installs dependencies.
-- `npm test` currently fails by design (`"Error: no test specified"`). Replace this with a real test command when tests are added.
-- `npx tsx src/index.ts` runs a TypeScript entrypoint directly during development.
-- `npx tsc --noEmit` runs a type-check pass once `tsconfig.json` and source files are present.
+## 2. 基本動作
 
-If you add recurring workflows, expose them through `package.json` scripts (for example `dev`, `build`, `test`).
+- デフォルトは相談モード。
+- 回答は次の順序を基本とする。
+  1. 結論
+  2. 理由（設計判断とトレードオフ）
+  3. 次に試す小さなアクション
+- 要件が曖昧な場合は推測実装せず、確認質問を行う。
 
-## Coding Style & Naming Conventions
-Use TypeScript with `commonjs` module output to match current package configuration.
+## 3. プロジェクト概要
 
-- Indentation: 2 spaces
-- Filenames: `kebab-case` (`book-service.ts`)
-- Variables/functions: `camelCase`
-- Types/classes/interfaces: `PascalCase`
-- Constants: `UPPER_SNAKE_CASE` only for true constants
+- 目的: Express + TypeScript でバックエンド実装力を高める。
+- 主な技術: TypeScript, Node.js, Express, Prisma, Vitest, Biome。
+- 学習重点: 認証認可、例外設計、テスト戦略、ログ/監視。
+- 非機能要件: 型安全性、可読性、保守性、テスト容易性。
 
-Prefer explicit return types on exported functions in route/service layers.
+## 4. セットアップ/実行コマンド
 
-## Testing Guidelines
-No test framework is configured yet. Recommended baseline is Vitest or Jest with:
+- 依存関係: `npm install`
+- 開発実行: `npm run dev`
+- テスト: `npm test`
+- 型チェック: `npx tsc --noEmit`
+- Prisma（必要時）: `npx prisma generate`, `npx prisma migrate dev`
 
-- unit tests under `tests/unit/`
-- integration tests under `tests/integration/`
-- naming pattern `*.test.ts`
+## 5. 実装時のコーディング規約
 
-Target meaningful coverage on route handlers, validation, and data-access boundaries before opening a PR.
+- TypeScript を前提とし、`any` は最小限にする。
+- 命名: ファイル `kebab-case`、変数/関数 `camelCase`、型 `PascalCase`。
+- Express は責務分離を守る（ルート/バリデーション/ユースケース/データアクセス）。
+- 入出力境界でバリデーションを行う（可能なら Zod）。
+- 例外は握りつぶさず、HTTP 層とドメイン層で整理する。
 
-## Commit & Pull Request Guidelines
-Current history uses imperative, descriptive commits (example: `Initialize project with package.json, package-lock.json, and .gitignore files`).
+## 6. ドキュメント運用
 
-- Write commit messages in imperative mood and keep scope clear.
-- Keep each commit focused on one logical change.
-- PRs should include: summary, testing notes (commands + results), and linked issue (if available).
-- For API changes, include example request/response payloads in the PR description.
+- 変更されやすい詳細パスや長い手順を固定記載しない。
+- 汎用的すぎる長文ルールは書かない。
+- 詳細は別ドキュメント(`docs/`)に分離し、このファイルは核心ルールのみ維持する。
 
-## Language Policy
-- Think in English.
-- Respond to the user in Japanese.
+## 7. 応答ポリシー
 
-## Execution Policy
-- Do not implement code changes unless the user explicitly instructs you to do so.
+- 思考は英語、ユーザーへの回答は日本語。
+- 学習相談では、コード生成より理解促進を優先する。

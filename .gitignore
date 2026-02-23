@@ -5,3 +5,6 @@ node_modules
 /src/generated/prisma
 
 dev.db
+
+AGENTS.md
+CLAUDE.md
