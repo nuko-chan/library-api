@@ -5,6 +5,7 @@ import { BookController } from "../../adapter/controllers/bookController.js";
 import { PrismaBookRepository } from "../../adapter/repositories/prismaBookRepository.js";
 import { UuidGenerator } from "../../adapter/utils/uuidGenerator.js";
 import { AddBookUseCase } from "../../application/usecases/book/addBookUseCase.js";
+import { FindBookByIdUseCase } from "../../application/usecases/book/findBookByIdUseCase.js";
 import { PrismaClient } from "../../generated/prisma/client.js";
 import { bookRoutes } from "./routers/bookRouter.js";
 
@@ -19,7 +20,8 @@ const iiudidGenerator = new UuidGenerator();
 
 const bookRepository = new PrismaBookRepository(prisma);
 const addBookUseCase = new AddBookUseCase(bookRepository, iiudidGenerator);
-const bookController = new BookController(addBookUseCase);
+const findBookByIdUseCase = new FindBookByIdUseCase(bookRepository);
+const bookController = new BookController(addBookUseCase, findBookByIdUseCase);
 app.use("/books", bookRoutes(bookController));
 
 // ポートを指定する
