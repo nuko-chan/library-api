@@ -1,6 +1,6 @@
 import { Loan } from "../../domain/entities/loan.js";
 
-import type { LoanRepositoryInterface } from "../../domain/repositories/loadnRepositoryInterface.js";
+import type { LoanRepositoryInterface } from "../../domain/repositories/loanRepositoryInterface.js";
 import type { TransactionContextInterface } from "../../domain/utils/transactionContextInterface.js";
 
 import type { PrismaClient } from "../../generated/prisma/client.js";
@@ -81,6 +81,26 @@ export class PrismaLoanRepository implements LoanRepositoryInterface {
 					foundLoan.createdAt,
 					foundLoan.updatedAt,
 				),
+		);
+	}
+
+	async update(loan: Loan, ctx?: TransactionContextInterface): Promise<Loan> {
+		const prisma = ctx ? (ctx as PrismaClient) : this.prisma;
+		const updatedLoan = await prisma.loan.update({
+			where: { id: loan.id },
+			data: {
+				returnDate: loan.returnDate,
+			},
+		});
+
+		return new Loan(
+			updatedLoan.id,
+			updatedLoan.bookId,
+			updatedLoan.userId,
+			updatedLoan.loanDate,
+			updatedLoan.returnDate,
+			updatedLoan.createdAt,
+			updatedLoan.updatedAt,
 		);
 	}
 }

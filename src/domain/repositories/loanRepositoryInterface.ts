@@ -8,4 +8,5 @@ export interface LoanRepositoryInterface {
 		userId: string,
 		ctx?: TransactionContextInterface,
 	): Promise<Loan[]>;
+	update(loan: Loan, ctx?: TransactionContextInterface): Promise<Loan>;
 }

@@ -12,6 +12,7 @@ import { UuidGenerator } from "../../adapter/utils/uuidGenerator.js";
 import { AddBookUseCase } from "../../application/usecases/book/addBookUseCase.js";
 import { FindBookByIdUseCase } from "../../application/usecases/book/findBookByIdUseCase.js";
 import { LoanBookUseCase } from "../../application/usecases/loan/loanBookUseCase.js";
+import { ReturnBookUseCase } from "../../application/usecases/loan/returnBookUseCase.js";
 import { CreateUserUseCase } from "../../application/usecases/user/createUserUseCase.js";
 import { PrismaClient } from "../../generated/prisma/client.js";
 import { bookRoutes } from "./routers/bookRouter.js";
@@ -47,7 +48,12 @@ const loanBookUseCase = new LoanBookUseCase(
 	uuidGenerator,
 	transactionManager,
 );
-const loanController = new LoanController(loanBookUseCase);
+const returnBookUseCase = new ReturnBookUseCase(
+	loanRepository,
+	bookRepository,
+	transactionManager,
+);
+const loanController = new LoanController(loanBookUseCase, returnBookUseCase);
 
 // ルーティングを登録
 app.use("/users", userRoutes(userController));

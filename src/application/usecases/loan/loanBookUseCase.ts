@@ -1,6 +1,6 @@
 import { Loan } from "../../../domain/entities/loan.js";
 import type { BookRepositoryInterface } from "../../../domain/repositories/bookRepositoryInterface.js";
-import type { LoanRepositoryInterface } from "../../../domain/repositories/loadnRepositoryInterface.js";
+import type { LoanRepositoryInterface } from "../../../domain/repositories/loanRepositoryInterface.js";
 import type { IdGeneratorInterface } from "../../../domain/utils/idGeneratorInterface.js";
 import type { LoanBookRequestDto } from "../../dtos/loan/loanBookRequestDto.js";
 import type { LoanBookResponseDto } from "../../dtos/loan/loanBookResponseDto.js";
